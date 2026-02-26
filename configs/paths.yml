@@ -1,0 +1,27 @@
+# Data
+raw_data_path: /opt/airflow/data/raw/sales_2026.xlsx
+interim_path: /opt/airflow/data/interim/data_ready.parquet
+processed_parquet: /opt/airflow/data/processed/data_cleaned.parquet
+processed_excel: /opt/airflow/data/processed/data_cleaned.xlsx
+processed_csv: /opt/airflow/data/processed/data_cleaned.csv
+processed_parquet_monitoring: "data/processed/data_cleaned.parquet"
+# Database
+db_config: /opt/airflow/configs/db.yml
+auth_config: "configs/auth.yml"
+
+# Logs
+logs_dir_cleaning: /opt/airflow/logs/01_cleaning_logs
+logs_dir_staging: /opt/airflow/logs/02_staging_logs
+logs_dir_dw: /opt/airflow/logs/03_dw_logs
+logs_dir_ml: /opt/airflow/logs/04_ml_logs
+logs_dir_monitoring: "logs/05_monitoring_logs"
+logs_dir_api: "logs/06_api_logs"
+
+# Model
+client_category_model_path: /opt/airflow/model/01_client_category_model.pkl
+client_category_encoder_path: /opt/airflow/model/01_label_encoder.pkl
+weekly_model_path: /opt/airflow/model/02_weekly_forecasting_model.pkl
+monthly_model_path: /opt/airflow/model/03_monthly_forecasting_model.pkl
+
+weekly_prediction: /opt/airflow/prediction/weekly_prediction.parquet
+monthly_prediction: /opt/airflow/prediction/monthly_prediction.parquet

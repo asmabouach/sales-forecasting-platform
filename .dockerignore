@@ -1,0 +1,107 @@
+# Git & version control
+.git
+.gitignore
+.gitattributes
+.github/
+
+# Python caches & temporary files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments & local dev
+venv/
+.env/
+.venv/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+.python-version
+poetry.lock          # usually don't need in Docker
+
+# IDE / editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+
+# Testing & coverage
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.pytest_cache/
+tests/
+pytest.ini           
+
+# Logs & temporary files
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+
+# Jupyter / notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+
+# Large data & model files
+data/
+*.csv
+*.parquet
+*.jsonl
+*.json
+*.h5
+*.pickle
+*.pkl
+*.joblib
+model/
+checkpoints/
+artifacts/
+wandb/
+mlruns/
+
+# Airflow specific (runtime generated)
+airflow/logs/
+airflow/plugins/     # only if you don't have custom plugins
+
+# Streamlit & web runtime files
+.streamlit/
+frontend/node_modules/
+frontend/build/
+
+# Docker & build artifacts
+Dockerfile*
+docker-compose*
+*.dockerignore
+.docker/
+
+# macOS / Windows junk
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Misc
+dashboard/
+img/
+notebook/
+output/
+prediction/
+.gen.py
+.env
+data/interim/data_ready.parquet
+
+# Keep these (usually useful to copy):
+# src/                  ← your code
+# airflow/dags/         ← your DAGs
+# airflow/rags/         ← your RAG code
+# requirements*.txt     ← needed for pip install
+# streamlit/app.py      ← your dashboard

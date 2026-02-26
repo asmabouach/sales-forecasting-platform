@@ -1,0 +1,23 @@
+cookie:
+  name: sales_forecasting_cookie
+  key: sk_live_XXXXXX
+  expiry_days: 30
+
+credentials:
+  usernames:
+    stakeholder:
+      name: Business Stakeholder
+      password: stakeholder  # will be auto-hashed on first login
+      roles: [viewer]
+    analyst:
+      name: Data Analyst
+      password: analyst
+      roles: [data_team]
+    admin:
+      name: Admin User
+      password: admin
+      roles: [data_team, admin]
+
+preauthorized:
+  emails:
+    - asma.bouach@gmail.com  # for future invite flow

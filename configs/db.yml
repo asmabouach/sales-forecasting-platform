@@ -1,0 +1,13 @@
+staging:
+  host: postgres
+  port: 5432
+  database: sales_sa
+  user: airflow
+  password_env: SA_DB_PASSWORD
+
+dw:
+  host: postgres
+  port: 5432
+  database: sales_dw
+  user: airflow
+  password_env: DW_DB_PASSWORD

@@ -1,0 +1,107 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "0.0.0.0:5433:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s  # Give more time for initialization
+
+  airflow-init:
+    image: sales-forecasting-airflow:latest   # ← same image for all airflow services
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__SMTP__SMTP_HOST: ${SMTP_HOST}
+      AIRFLOW__SMTP__SMTP_PORT: ${SMTP_PORT}
+      AIRFLOW__SMTP__SMTP_USER: ${SMTP_USERNAME}
+      AIRFLOW__SMTP__SMTP_PASSWORD: ${SMTP_PASSWORD}
+      AIRFLOW__SMTP__SMTP_SSL: ${SMTP_USE_SSL}
+      AIRFLOW__SMTP__SMTP_STARTTLS: ${SMTP_USE_TLS}
+      AIRFLOW__SMTP__SMTP_MAIL_FROM: ${SMTP_FROM_EMAIL}
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./src:/opt/airflow/src
+      - ./data:/opt/airflow/data
+      - ./configs:/opt/airflow/configs
+      - ./model:/opt/airflow/model
+      - ./prediction:/opt/airflow/prediction
+      - .:/opt/airflow/sales_forecasting
+    command: >
+      bash -c "sleep 5 && airflow db init"
+
+  airflow-webserver:
+    image: sales-forecasting-airflow:latest   # ← same image
+    restart: always
+    depends_on:
+      - airflow-init
+    ports:
+      - "8081:8080"
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__SMTP__SMTP_HOST: ${SMTP_HOST}
+      AIRFLOW__SMTP__SMTP_PORT: ${SMTP_PORT}
+      AIRFLOW__SMTP__SMTP_USER: ${SMTP_USERNAME}
+      AIRFLOW__SMTP__SMTP_PASSWORD: ${SMTP_PASSWORD}
+      AIRFLOW__SMTP__SMTP_SSL: ${SMTP_USE_SSL}
+      AIRFLOW__SMTP__SMTP_STARTTLS: ${SMTP_USE_TLS}
+      AIRFLOW__SMTP__SMTP_MAIL_FROM: ${SMTP_FROM_EMAIL}
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./src:/opt/airflow/src
+      - ./data:/opt/airflow/data
+      - ./configs:/opt/airflow/configs
+      - ./model:/opt/airflow/model
+      - ./prediction:/opt/airflow/prediction
+      - .:/opt/airflow/sales_forecasting
+    command: airflow webserver
+
+  airflow-scheduler:
+    image: sales-forecasting-airflow:latest   # ← same image
+    restart: always
+    depends_on:
+      - airflow-init
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      AIRFLOW__SMTP__SMTP_HOST: ${SMTP_HOST}
+      AIRFLOW__SMTP__SMTP_PORT: ${SMTP_PORT}
+      AIRFLOW__SMTP__SMTP_USER: ${SMTP_USERNAME}
+      AIRFLOW__SMTP__SMTP_PASSWORD: ${SMTP_PASSWORD}
+      AIRFLOW__SMTP__SMTP_SSL: ${SMTP_USE_SSL}
+      AIRFLOW__SMTP__SMTP_STARTTLS: ${SMTP_USE_TLS}
+      AIRFLOW__SMTP__SMTP_MAIL_FROM: ${SMTP_FROM_EMAIL}
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./src:/opt/airflow/src
+      - ./data:/opt/airflow/data
+      - ./configs:/opt/airflow/configs
+      - ./model:/opt/airflow/model
+      - ./prediction:/opt/airflow/prediction
+      - .:/opt/airflow/sales_forecasting
+    command: airflow scheduler
+
+volumes:
+  postgres-data:

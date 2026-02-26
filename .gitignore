@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+**/.vs
+**/.vscode
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE / system
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs & temp files
+*logs/
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Airflow
+airflow/logs/
+airflow/unittests/
+
+# Data & models
+*mlruns/
+model/*.pkl
+data/interim/*.parquet
+data/processed/*.parquet
+data/processed/*.csv
+data/processed/*.xlsx
+data/raw/*.xlsx
+data/raw/*.json
+prediction/*.csv
+prediction/*.parquet
+
+# Docker
+.envrc
+
+# Git metadata
+**/.git
+**/.gitignore
+
+# Files
+.gen.py
+configs/db-local.yml
+configs/paths-local.yml
+**/weekly_cleaning_full.py
+**/weekly_cleanin-local.py
+**/research_paper.pdf
+
+#Misc
+*dashboard/
+*.env
+img/*.png
+img/*.gif
+img/*.jpg
+!img/dashboard.gif
+!img/monitoring.gif
+!img/auth.png
+!img/airflow_pipeline.png
+!img/success_email.png
+output/*.txt
+output/*.csv
+!output/last_update.txt
