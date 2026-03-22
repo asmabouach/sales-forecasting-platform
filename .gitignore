@@ -51,6 +51,7 @@ prediction/*.parquet
 
 # Files
 .gen.py
+.env
 configs/db-local.yml
 configs/paths-local.yml
 **/weekly_cleaning_full.py
