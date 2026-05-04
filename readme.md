@@ -228,7 +228,7 @@ pytest tests/ -v
 This project uses **synthetic financial data** generated for demonstration purposes .\
 No confidential or real client information is included.
 
-## 📄 Preprint Paper
+## 📄 Technical Report
 
 A comparative study of machine learning models for multi-class client classification and sales forecasting in an enterprise decision support setting.
 
@@ -261,5 +261,5 @@ A comparative study of machine learning models for multi-class client classifica
 ## 📜 License
 
 - **Code**: MIT License (see [LICENSE](LICENSE))
-- **Paper**: Creative Commons Attribution 4.0 (CC BY 4.0)
+- **Report**: Creative Commons Attribution 4.0 (CC BY 4.0)
 
